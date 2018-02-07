@@ -11,9 +11,9 @@ _MainGui()
 Func _MainGui()
 Local $hFooter, $nMsg, $aPos
 Local $iLinks = 5
-Local $sMainGuiTitle = "Auswertung"
-Local $sHeader = "Bedienoberfläche des Auswertungsprogramms"
-Local $sFooter = "Ordner 'Verbrauch' öffnen"
+Local $sMainGuiTitle = "Sample Title"
+Local $sHeader = "Sample GUI"
+Local $sFooter = "2012 � AutoIt"
 Local $aLink[$iLinks], $aPanel[$iLinks]
 $aLink[0] = $iLinks - 1
 $aPanel[0] = $iLinks - 1
@@ -24,7 +24,7 @@ GUICtrlCreateLabel($sHeader, 48, 8, $iW - 56, 32, $SS_CENTERIMAGE)
 GUICtrlSetFont(-1, 14, 800, 0, "Arial", 5)
 GUICtrlSetResizing(-1, $GUI_DOCKLEFT + $GUI_DOCKTOP + $GUI_DOCKWIDTH + $GUI_DOCKHEIGHT)
 
-GUICtrlCreateIcon("shell32.dll", -208, 8, 8, 32, 32)
+GUICtrlCreateIcon("shell32.dll", -131, 8, 8, 32, 32)
 GUICtrlSetResizing(-1, $GUI_DOCKLEFT + $GUI_DOCKTOP + $GUI_DOCKWIDTH + $GUI_DOCKHEIGHT)
 GUICtrlCreateLabel("", 0, $iT, $iW, 2, $SS_SUNKEN);separator
 GUICtrlSetResizing(-1, $GUI_DOCKTOP + $GUI_DOCKLEFT + $GUI_DOCKRIGHT + $GUI_DOCKHEIGHT)
@@ -34,47 +34,56 @@ GUICtrlCreateLabel("", 0, $iH - $iB, $iW, 2, $SS_SUNKEN);separator
 GUICtrlSetResizing(-1, $GUI_DOCKBOTTOM + $GUI_DOCKLEFT + $GUI_DOCKRIGHT + $GUI_DOCKHEIGHT)
 
 $hFooter = GUICtrlCreateLabel($sFooter, 10, $iH - 34, $iW - 20, 17, BitOR($SS_LEFT, $SS_CENTERIMAGE))
-GUICtrlSetTip(-1, "Explorer", "Click to open...")
+GUICtrlSetTip(-1, "AutoIt Forum", "Click to open...")
 GUICtrlSetCursor(-1, 0)
 GUICtrlSetResizing(-1, $GUI_DOCKLEFT + $GUI_DOCKRIGHT + $GUI_DOCKBOTTOM + $GUI_DOCKHEIGHT)
 
 ;add links to the left side
-$aLink[1] = _AddNewLink("Auswertung Komplett", -167)
-$aLink[2] = _AddNewLink("Letzte Liste Löschen", -132)
-
+$aLink[1] = _AddNewLink("Link 1")
+$aLink[2] = _AddNewLink("Link 2", -167)
+$aLink[3] = _AddNewLink("Link 3", -222)
+$aLink[4] = _AddNewLink("Link 4", -22)
 ;and the corresponding GUI's
-$aPanel[1] = _AddNewPanel("Auswertung Komplett")
-$aPanel[2] = _AddNewPanel("Letzte Liste Löschen")
-$aPanel[3] = _AddNewPanel("")
-
+$aPanel[1] = _AddNewPanel("Title for the panel 1")
+$aPanel[2] = _AddNewPanel("Title for the panel 2")
+$aPanel[3] = _AddNewPanel("Title for the panel 3")
+$aPanel[4] = _AddNewPanel("Title for the panel 4")
 
 ;add some controls to the panels
 _AddControlsToPanel($aPanel[1])
-GUICtrlCreateEdit("", 10, 37, $iW - $iLeftWidth + 2 - 20 - 5, 300 - $iT - $iB - 40, BitOR($ES_AUTOVSCROLL, $ES_NOHIDESEL, $ES_WANTRETURN, $WS_VSCROLL), $WS_EX_STATICEDGE)
+GUICtrlCreateEdit("", 10, 37, $iW - $iLeftWidth + 2 - 20 - 5, $iH - $iT - $iB - 40, BitOR($ES_AUTOVSCROLL, $ES_NOHIDESEL, $ES_WANTRETURN, $WS_VSCROLL), $WS_EX_STATICEDGE)
 Local $sTestTxt = ""
-$sTestTxt &= "Dieses Programm erstellt die Jahres-(J_) und Monatsauswertungen(M_) aus SAP und fügt diese an die Gesamtlisten(Z_) hinzu." & @CRLF
-$sTestTxt &= "Bitte beachten Sie:" & @CRLF
-$sTestTxt &= @TAB & "-Alle SAP-Fenster werden geschlossen" & @CRLF
-$sTestTxt &= @TAB & "-Alle Excel-Fenster werden geschlossen" & @CRLF
-$sTestTxt &= @TAB & "-Ausweis muss im Kartenleser stecken" & @CRLF
-$sTestTxt &= @TAB & "-Machen Sie KEINE Maus- oder Tastatureingaben" & @CRLF
-$sTestTxt &= @TAB & "-Dauer ca. 5 Minuten" & @CRLF
-$sTestTxt &= "Das Programm kann jederzeit mit F4 beendet werden!" & @CRLF
+For $i = 1 To 2
+$sTestTxt &= @TAB & "A" & @CRLF
+$sTestTxt &= @TAB & "b" & @CRLF
+$sTestTxt &= @TAB & "c" & @CRLF
+Next
 GUICtrlSetData(-1, $sTestTxt)
-GUICtrlSetResizing(-1, $GUI_DOCKTOP + $GUI_DOCKLEFT + $GUI_DOCKRIGHT + $GUI_DOCKBOTTOM)
-Local $hButton1 = GUICtrlCreateButton("Start", 10, 200, 75, 25)
 GUICtrlSetResizing(-1, $GUI_DOCKTOP + $GUI_DOCKLEFT + $GUI_DOCKRIGHT + $GUI_DOCKBOTTOM)
 
 _AddControlsToPanel($aPanel[2])
-GUICtrlCreateEdit("", 10, 37, $iW - $iLeftWidth + 2 - 20 - 5, 300 - $iT - $iB - 40, BitOR($ES_AUTOVSCROLL, $ES_NOHIDESEL, $ES_WANTRETURN, $WS_VSCROLL), $WS_EX_STATICEDGE)
-Local $sTestTxt = ""
-$sTestTxt &= "Löscht das Tabellenblatt des letzten erstellten Monats in den Z_-Listen." & @CRLF
-$sTestTxt &= "Ändert NICHT das JV-Blatt. Dieses kann nur durch erstellen der Auswertung geändert werden."  & @CRLF
-$sTestTxt &= "Letzten erstellten Monat wirklich löschen?"
-GUICtrlSetData(-1, $sTestTxt)
-GUICtrlSetResizing(-1, $GUI_DOCKTOP + $GUI_DOCKLEFT + $GUI_DOCKRIGHT + $GUI_DOCKBOTTOM)
-Local $hButton2 = GUICtrlCreateButton("Start", 10, 200, 75, 25)
+GUICtrlCreateLabel("Label1", 8, 38, 36, 17)
 GUICtrlSetResizing(-1, $GUI_DOCKTOP + $GUI_DOCKLEFT + $GUI_DOCKWIDTH + $GUI_DOCKHEIGHT)
+Local $hInput1 = GUICtrlCreateInput("Input1", 56, 35, 121, 21)
+GUICtrlSetResizing(-1, $GUI_DOCKTOP + $GUI_DOCKLEFT + $GUI_DOCKWIDTH + $GUI_DOCKHEIGHT)
+Local $hButton1 = GUICtrlCreateButton("Button1", 200, 33, 75, 25)
+GUICtrlSetResizing(-1, $GUI_DOCKTOP + $GUI_DOCKLEFT + $GUI_DOCKWIDTH + $GUI_DOCKHEIGHT)
+
+_AddControlsToPanel($aPanel[3])
+GUICtrlCreateList("", 8, 37, 121, 93, -1, 0)
+GUICtrlSetData(-1, "dfgdfg|ertert|kljlkj|poipoi|qweqwe")
+GUICtrlSetResizing(-1, $GUI_DOCKTOP + $GUI_DOCKLEFT + $GUI_DOCKWIDTH + $GUI_DOCKHEIGHT)
+
+_AddControlsToPanel($aPanel[4])
+GUICtrlCreateGroup("Group1", 8, 35, 129, 90)
+GUICtrlSetResizing(-1, $GUI_DOCKTOP + $GUI_DOCKLEFT + $GUI_DOCKWIDTH + $GUI_DOCKHEIGHT)
+Local $aChkBox[4]
+For $i = 1 To 3
+$aChkBox[$i] = GUICtrlCreateRadio("Some radio " & $i, 16, 56 + ($i - 1) * 20, 113, 17)
+GUICtrlSetResizing(-1, $GUI_DOCKTOP + $GUI_DOCKLEFT + $GUI_DOCKWIDTH + $GUI_DOCKHEIGHT)
+Next
+GUICtrlSetState(-1, $GUI_CHECKED)
+GUICtrlCreateGroup("", -99, -99, 1, 1)
 
 ;set default to Panel1
 GUISwitch($aPanel[1])
@@ -105,17 +114,19 @@ GUISetState(@SW_HIDE, $aPanel[$i])
 EndIf
 Next
 Case $hFooter
-ShellExecute(@ScriptDir & "\Verbrauch")
-EndSwitch
-Case $aPanel[1]
-Switch $nMsg[0]
-Case $hButton1
-_AuswertungKomplett()
+ShellExecute("http://www.autoitscript.com/forum/topic/146952-gui-design-concepts/")
 EndSwitch
 Case $aPanel[2]
 Switch $nMsg[0]
-Case $hButton2
-MsgBox(32, "Test", "Letzte Liste Löschen")
+Case $hButton1
+MsgBox(32, "Test", "You have " & GUICtrlRead($hInput1) & "?")
+EndSwitch
+Case $aPanel[4]
+Switch $nMsg[0]
+Case $aChkBox[1], $aChkBox[2], $aChkBox[3]
+For $i = 1 To 3
+If GUICtrlRead($aChkBox[$i]) = $GUI_CHECKED Then MsgBox(64, "Test", "You checked nr. " & $i & "!")
+Next
 EndSwitch
 EndSwitch
 WEnd
