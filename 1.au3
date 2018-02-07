@@ -81,6 +81,8 @@ GUISwitch($aPanel[1])
 ;show the main GUI
 GUISetState(@SW_SHOW, $hMainGUI)
 
+MsgBox(32, "Git", "Test")
+
 While 1
 Sleep(10)
 $nMsg = GUIGetMsg(1)
